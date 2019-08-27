@@ -52,7 +52,11 @@ export default function() {
     // Add incoming messages to chatbox
     React.useEffect(() => {
         if(lastMessage && lastMessage.data) {
-            setMessageHistory(prev => prev.concat(JSON.parse(lastMessage.data)));
+            const message = JSON.parse(lastMessage.data);
+
+            if(message.ChannelId === channelId) {
+                setMessageHistory(prev => prev.concat(message));
+            }
         }
     }, [lastMessage]);
 
