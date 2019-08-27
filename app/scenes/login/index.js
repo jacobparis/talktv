@@ -5,8 +5,11 @@ import { Container } from "../../components/containers";
 import { Card, Divider, Icon } from "../../components/cards";
 
 export default function() {
-    const onLogin = React.useCallback(() => useAuth().signIn(), []);
-
+    const onLogin = React.useCallback(() => useAuth().signIn().then(() => {
+        // Refresh after sign-in
+        location.reload();
+    }), []);
+    
     return (
         <Container>
             <LoginCard onLogin={onLogin} />
