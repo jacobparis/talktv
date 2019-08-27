@@ -24,6 +24,13 @@ export default function() {
 
     const [socketUrl, setSocketUrl] = React.useState(SOCKET_URL);
     const [sendMessage, lastMessage, readyState] = useWebSocket(socketUrl);
+    React.useEffect(() => {
+        if(lastMessage && lastMessage.data) {
+            console.log(lastMessage);
+        }
+    }, [lastMessage]);
+
+    const onSend = body => sendMessage(buildMessage(body, channelId));
 
     const connectionStatus = READY_STATES[readyState];
     
@@ -36,11 +43,24 @@ export default function() {
             <Container>
                 <Section>
                     <SectionTitle>{connectionStatus}</SectionTitle>
-                    <MessageInput />
+                    <MessageInput onSend={onSend} />
                 </Section>
             </Container>
         </div>
     );
+}
+
+function buildMessage(body, channelId) {
+    const profile = useProfile();
+
+    const message = JSON.stringify({
+        MessageAuthor: profile.name,
+        MessageBody: body,
+        ChannelId: channelId,
+        MessageId: new Date().getTime()
+    });
+
+    return message;
 }
 
 function useProfile() {
