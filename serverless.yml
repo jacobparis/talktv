@@ -27,6 +27,17 @@ provider:
         - execute-api:Invoke
       Resource:
         - arn:aws:execute-api:${opt:region, self:provider.region}:*:**/@connections/*
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:DeleteItem
+      Resource: 
+        - Fn::GetAtt:
+            - Connections
+            - Arn
 
 custom:
   output:
@@ -65,3 +76,21 @@ resources:
         Name: ${self:service}-socket-api
         ProtocolType: WEBSOCKET
         RouteSelectionExpression: "$request.body.message"
+
+    Connections:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: ConnectionId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ConnectionId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.PREFIX}-connections
+          
+  Outputs:
+    TableArn:
+      Value: arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.PREFIX}
