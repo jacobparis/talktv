@@ -1,5 +1,7 @@
 node_modules
-dist
+dist/*.html
+dist/*.js
+dist/*.css
 .env
 .serverless
 .dynamodb
