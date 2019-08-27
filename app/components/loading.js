@@ -3,9 +3,9 @@ import { Container } from "./containers";
 import Loader from "react-loader-spinner";
 import Theme from "../theme";
 
-export function Loading() {
+export function Loading({wide}) {
     return (
-        <Container>
+        <Container wide={wide}>
             <Loader
                 type="Bars"
                 color={Theme.primary}
