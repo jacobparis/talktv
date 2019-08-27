@@ -4,6 +4,10 @@ import Theme from "../theme";
 
 import { Button } from "./button";
 
+export const MessageList = styled.div`
+    overflow-y: scroll;
+    max-height: 30rem;
+`;
 
 const Message = styled.div`
     padding: 0.5rem;
@@ -65,11 +69,18 @@ export function MessageInput({onSend}) {
 
     const sendMessage = React.useCallback(() => {
         onSend(input.current.value);
+
+        input.current.value = "";
     }, [input]);
 
+    const onEnter = e => {
+        if (e.key === "Enter") {
+            sendMessage();
+        }
+    }
     return (
         <InputContainer>
-            <Input ref={input} placeholder="Write a message" />
+            <Input ref={input} onKeyPress={onEnter} placeholder="Write a message" />
             <SendButton primary onClick={sendMessage}>SEND</SendButton>
         </InputContainer>
     );
