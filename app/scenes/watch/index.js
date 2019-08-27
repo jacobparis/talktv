@@ -43,7 +43,6 @@ export default function() {
     const [sendMessage, lastMessage, readyState] = useWebSocket(socketUrl);
     React.useEffect(() => {
         if(lastMessage && lastMessage.data) {
-            console.log(lastMessage);
             setMessageHistory(prev => prev.concat(JSON.parse(lastMessage.data)));
         }
     }, [lastMessage]);

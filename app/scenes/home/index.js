@@ -35,7 +35,6 @@ function getVideos() {
             "q": "game",
             "type": "video"
         }).then(response => {
-            console.log("GET VIDEOS", response);
             const items = response.result.items;
 
             if(items) {
@@ -44,7 +43,6 @@ function getVideos() {
                 reject();
             }
         }).catch(error => {
-            console.log("ERROR VIDEOS", error);
             reject();
         });
     });
