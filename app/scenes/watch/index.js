@@ -4,6 +4,8 @@ import { Header } from "../../components/header";
 import { Container, Section, SectionTitle } from "../../components/containers";
 import { VideoFrame } from "../../components/youtube";
 
+const SOCKET_URL = "wss://hkwdhszrwk.execute-api.us-west-2.amazonaws.com/dev";
+
 export default function() {
     const channelId = document.location.pathname.split('/').pop();
 
