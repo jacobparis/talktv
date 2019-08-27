@@ -4,6 +4,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
+import { Loading } from "./components/loading";
+
 import LoginScene from "./scenes/login";
 import HomeScene from "./scenes/home";
 
@@ -41,7 +43,7 @@ function AppContainer() {
         })
     }, [isGoogleReady]);
     
-    return isGoogleReady ? <App /> : <div>Loading...</div>;
+    return isGoogleReady ? <App /> : <Loading />;
 }
 
 
