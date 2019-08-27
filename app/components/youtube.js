@@ -67,3 +67,18 @@ export function YoutubeGallery({videos}) {
         />
     )) : <Loading wide/>
 }
+
+export const VideoFrame = styled.iframe.attrs(({id}) => ({
+    width: 560,
+    height: 349,
+    frameborder: "0",
+    allowFullScreen: true,
+    src: getEmbedURL(id)
+}))`
+    border-radius: 1rem;
+    border: none;
+`;
+
+function getEmbedURL(channelId) {
+    return `https://www.youtube.com/embed/${channelId}`;
+}
