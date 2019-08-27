@@ -1,16 +1,16 @@
 import React from "react";
 
 import { Header } from "../../components/header";
+import { BoxGrid, YoutubeGallery } from "../../components/youtube";
 
 export default function() {
+    const [videos, setVideos] = React.useState([]);
 
     React.useEffect(() => {
         let isSubscribed = true;
 
         getVideos().then(videos => {
-            if (isSubscribed) {
-                console.log(videos);
-            }
+            if (isSubscribed) setVideos(videos);
         });
 
         return () => isSubscribed = false;
@@ -19,7 +19,9 @@ export default function() {
     return (
         <div>
             <Header />
-            <h1> Welcome home, logged in user!</h1>
+            <BoxGrid>
+                <YoutubeGallery videos={videos} />
+            </BoxGrid>
         </div>
     );
 }
