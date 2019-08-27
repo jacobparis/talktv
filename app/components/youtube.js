@@ -75,8 +75,8 @@ export const VideoFrame = styled.iframe.attrs(({id}) => ({
     allowFullScreen: true,
     src: getEmbedURL(id)
 }))`
-    border-radius: 1rem;
-    border: none;
+    border-radius: ${props => Theme.baseRadius};
+    border: ${props => `1px solid ${Theme.primary}33`};
 `;
 
 function getEmbedURL(channelId) {
