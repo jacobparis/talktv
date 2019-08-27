@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Theme from "../theme";
 
 export const Card = styled.div`
     color: #333;
@@ -7,6 +8,8 @@ export const Card = styled.div`
     width: ${props => props.narrow ? "300px" : "800px"}
     max-width: 90%;
     text-align: center;
+    border-radius: ${props => Theme.baseRadius};
+    border: ${props => `1px solid ${Theme.primary}33`};
 `;
 
 export const Divider = styled.hr`
