@@ -13,6 +13,12 @@ const READY_STATES = [
     "Chat disconnected. Refresh the page to reconnect."
 ];
 
+const HTTP_URL = process.env.IS_OFFLINE ? (
+    "http://localhost:3000"
+) : (
+    "https://3pxe3ksj6h.execute-api.us-west-2.amazonaws.com/dev"
+);
+
 const SOCKET_URL = process.env.IS_OFFLINE ? (
     "ws://localhost:3001"
 ) : (
@@ -22,9 +28,19 @@ const SOCKET_URL = process.env.IS_OFFLINE ? (
 export default function() {
     const channelId = document.location.pathname.split('/').pop();
 
+    const [messageHistory, setMessageHistory] = React.useState([]);
+    React.useEffect(() => {
+        let isSubscribed = true;
+
+        getMessageHistory(channelId).then(history => {
+            if (isSubscribed) setMessageHistory(history);
+        });
+
+        return () => isSubscribed = false;
+    }, [channelId]);
+
     const [socketUrl, setSocketUrl] = React.useState(SOCKET_URL);
     const [sendMessage, lastMessage, readyState] = useWebSocket(socketUrl);
-    const [messageHistory, setMessageHistory] = React.useState([]);
     React.useEffect(() => {
         if(lastMessage && lastMessage.data) {
             console.log(lastMessage);
@@ -74,4 +90,10 @@ function useProfile() {
         id: profile.getId(),
         name: profile.getName()
     };
+}
+
+function getMessageHistory(channelId) {
+    return fetch(`${HTTP_URL}/api/messages/${channelId}`)
+    .then(response => response.json())
+    .then(results => results.Items);
 }
