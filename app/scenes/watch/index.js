@@ -1,16 +1,32 @@
 import React from "react";
+import useWebSocket from 'react-use-websocket';
 
 import { Header } from "../../components/header";
 import { Container, Section, SectionTitle } from "../../components/containers";
 import { VideoFrame } from "../../components/youtube";
+import { MessageInput } from "../../components/messages";
 
-const SOCKET_URL = "wss://hkwdhszrwk.execute-api.us-west-2.amazonaws.com/dev";
+const READY_STATES = [
+    "Connecting to chat...",
+    "Connected to chat",
+    "Closing chat",
+    "Chat disconnected. Refresh the page to reconnect."
+];
+
+const SOCKET_URL = process.env.IS_OFFLINE ? (
+    "ws://localhost:3001"
+) : (
+    "wss://hkwdhszrwk.execute-api.us-west-2.amazonaws.com/dev"
+);
 
 export default function() {
     const channelId = document.location.pathname.split('/').pop();
 
-    const profile = useProfile();
+    const [socketUrl, setSocketUrl] = React.useState(SOCKET_URL);
+    const [sendMessage, lastMessage, readyState] = useWebSocket(socketUrl);
 
+    const connectionStatus = READY_STATES[readyState];
+    
     return (
         <div>
             <Header />
@@ -19,7 +35,8 @@ export default function() {
             </Container>
             <Container>
                 <Section>
-                    <SectionTitle>Join the conversation, {profile.name}!</SectionTitle>
+                    <SectionTitle>{connectionStatus}</SectionTitle>
+                    <MessageInput />
                 </Section>
             </Container>
         </div>
