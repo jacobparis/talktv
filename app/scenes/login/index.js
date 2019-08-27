@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Button } from "../../components/button";
 import { Container } from "../../components/containers";
 import { Card, Divider, Icon } from "../../components/cards";
 
@@ -21,7 +22,7 @@ function LoginCard() {
             </header>
             <Divider />
             <div>
-                PLEASE LOG IN
+                <Button primary wide>LOG IN</Button>
             </div>
         </Card>
     );
