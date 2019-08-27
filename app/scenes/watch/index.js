@@ -4,7 +4,7 @@ import useWebSocket from 'react-use-websocket';
 import { Header } from "../../components/header";
 import { Container, Section, SectionTitle } from "../../components/containers";
 import { VideoFrame } from "../../components/youtube";
-import { MessageInput } from "../../components/messages";
+import { Messages, MessageInput } from "../../components/messages";
 
 const READY_STATES = [
     "Connecting to chat...",
@@ -24,9 +24,11 @@ export default function() {
 
     const [socketUrl, setSocketUrl] = React.useState(SOCKET_URL);
     const [sendMessage, lastMessage, readyState] = useWebSocket(socketUrl);
+    const [messageHistory, setMessageHistory] = React.useState([]);
     React.useEffect(() => {
         if(lastMessage && lastMessage.data) {
             console.log(lastMessage);
+            setMessageHistory(prev => prev.concat(JSON.parse(lastMessage.data)));
         }
     }, [lastMessage]);
 
@@ -43,6 +45,7 @@ export default function() {
             <Container>
                 <Section>
                     <SectionTitle>{connectionStatus}</SectionTitle>
+                    <Messages messages={messageHistory} />
                     <MessageInput onSend={onSend} />
                 </Section>
             </Container>

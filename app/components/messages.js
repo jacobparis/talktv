@@ -4,6 +4,37 @@ import Theme from "../theme";
 
 import { Button } from "./button";
 
+
+const Message = styled.div`
+    padding: 0.5rem;
+`; 
+
+const Author = styled.span`
+    color: black;
+    font-weight: bold;
+    margin-inline-end: 1rem;
+`;
+
+const Body = styled.span`
+    color: black;
+    opacity: 0.64;
+`; 
+
+export function Messages({messages}) {
+    return messages.length ? messages
+    .filter(message => message.MessageBody)
+    .map(message => (
+        <Message>
+            <Author>{message.MessageAuthor}:</Author>
+            <Body>{message.MessageBody}</Body>
+        </Message>
+    )) : (
+        <Message>
+            <Body> Start a conversation! </Body>
+        </Message>
+    );
+}
+
 const InputContainer = styled.div`
     position: relative;
     margin-top: 2rem;
