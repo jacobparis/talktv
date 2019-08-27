@@ -28,7 +28,8 @@ exports.handler = async (event, context) => {
         socketApi
         .postToConnection({ConnectionId, Data})
         .promise()
-        .catch((error) => (error.statusCode === 410) && deleteConnection(ConnectionId))
+        .then(() => storeMessage(Data))
+        .catch((error) => (console.log(error), error.statusCode === 410) && deleteConnection(ConnectionId))
     ));
 
     return Promise.all(messagePromises);
@@ -46,4 +47,20 @@ exports.handler = async (event, context) => {
         return dynamoDB.delete(deleteParams).promise();
     }
 
+    function storeMessage(messageJSON) {
+        console.log("Storing Message", messageJSON);
+        const message = JSON.parse(messageJSON);
+
+        const messageParams = {
+            TableName:`${process.env.PREFIX}-messages`,
+            Item: {
+                ChannelId: message.ChannelId,
+                MessageId: message.MessageId,
+                MessageAuthor: message.MessageAuthor,
+                MessageBody: message.MessageBody
+            }
+        }
+
+        return dynamoDB.put(messageParams).promise();
+    }
 };
