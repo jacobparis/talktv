@@ -1,0 +1,19 @@
+{
+  "name": "talktv",
+  "version": "1.0.0",
+  "description": "Watch youtube live streams and chat with other viewers — built on React, Google Auth, with a Serverless Lambda backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JacobParis/talktv.git"
+  },
+  "author": "Jacob Paris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JacobParis/talktv/issues"
+  },
+  "homepage": "https://github.com/JacobParis/talktv#readme"
+}
