@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/JacobParis/talktv/issues"
   },
-  "homepage": "https://github.com/JacobParis/talktv#readme"
+  "homepage": "https://github.com/JacobParis/talktv#readme",
+  "dependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1"
+  }
 }
