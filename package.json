@@ -4,7 +4,8 @@
   "description": "Watch youtube live streams and chat with other viewers — built on React, Google Auth, with a Serverless Lambda backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack"
   },
   "repository": {
     "type": "git",
