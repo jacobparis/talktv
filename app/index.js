@@ -2,8 +2,10 @@ import "./index.scss";
 
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 
 import LoginScene from "./scenes/login";
+import HomeScene from "./scenes/home";
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const API_KEY = process.env.API_KEY;
@@ -13,7 +15,12 @@ function App() {
     const isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
 
     return isSignedIn ? (
-        <h1> 📺 Talk TV</h1>
+        <Router>
+            <Switch>
+                <Route path="/watch" component={HomeScene} />
+                <Redirect from="/" to="/watch" />
+            </Switch>
+        </Router>
     ) : <LoginScene />;
 }
 
