@@ -4,7 +4,7 @@ import useWebSocket from 'react-use-websocket';
 import { Header } from "../../components/header";
 import { Container, Section, SectionTitle } from "../../components/containers";
 import { VideoFrame } from "../../components/youtube";
-import { Messages, MessageInput } from "../../components/messages";
+import { Messages, MessageList, MessageInput } from "../../components/messages";
 
 const READY_STATES = [
     "Connecting to chat...",
@@ -61,7 +61,9 @@ export default function() {
             <Container>
                 <Section>
                     <SectionTitle>{connectionStatus}</SectionTitle>
-                    <Messages messages={messageHistory} />
+                    <MessageList>
+                        <Messages messages={messageHistory} />
+                    </MessageList>
                     <MessageInput onSend={onSend} />
                 </Section>
             </Container>
