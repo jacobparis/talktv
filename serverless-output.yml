@@ -1,5 +1,7 @@
-OnDisconnectFunctionLambdaFunctionQualifiedArn: 'arn:aws:lambda:us-west-2:926882414484:function:talktv-dev-OnDisconnectFunction:2'
+OnDisconnectFunctionLambdaFunctionQualifiedArn: 'arn:aws:lambda:us-west-2:926882414484:function:talktv-dev-OnDisconnectFunction:3'
 TableArn: 'arn:aws:dynamodb:us-west-2:*:table/talktv-dev'
-OnSendFunctionLambdaFunctionQualifiedArn: 'arn:aws:lambda:us-west-2:926882414484:function:talktv-dev-OnSendFunction:2'
-OnConnectFunctionLambdaFunctionQualifiedArn: 'arn:aws:lambda:us-west-2:926882414484:function:talktv-dev-OnConnectFunction:2'
+OnSendFunctionLambdaFunctionQualifiedArn: 'arn:aws:lambda:us-west-2:926882414484:function:talktv-dev-OnSendFunction:3'
+OnConnectFunctionLambdaFunctionQualifiedArn: 'arn:aws:lambda:us-west-2:926882414484:function:talktv-dev-OnConnectFunction:3'
+GetMessagesLambdaFunctionQualifiedArn: 'arn:aws:lambda:us-west-2:926882414484:function:talktv-dev-GetMessages:1'
+ServiceEndpoint: 'https://3pxe3ksj6h.execute-api.us-west-2.amazonaws.com/dev'
 ServerlessDeploymentBucketName: talktv-dev-serverlessdeploymentbucket-1cwh6cor5zsge
