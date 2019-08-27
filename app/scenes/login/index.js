@@ -4,8 +4,12 @@ import { Button } from "../../components/button";
 import { Container } from "../../components/containers";
 import { Card, Divider, Icon } from "../../components/cards";
 
+const YOUTUBE_SCOPE = "https://www.googleapis.com/auth/youtube.readonly";
+
 export default function() {
-    const onLogin = React.useCallback(() => useAuth().signIn().then(() => {
+    const onLogin = React.useCallback(() => useAuth().signIn({
+        scope: YOUTUBE_SCOPE
+    }).then(() => {
         // Refresh after sign-in
         location.reload();
     }), []);
