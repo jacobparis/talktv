@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack",
-    "serve": "npx serve -s dist"
+    "serve": "npx serve -s dist",
+    "provision": "sls dynamodb install && sls dynamodb start --migrate"
   },
   "repository": {
     "type": "git",
