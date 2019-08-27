@@ -1,6 +1,7 @@
 import React from "react";
 import useWebSocket from 'react-use-websocket';
 
+import { Button } from "../../components/button";
 import { Header } from "../../components/header";
 import { Container, Section, SectionTitle } from "../../components/containers";
 import { VideoFrame } from "../../components/youtube";
@@ -50,7 +51,9 @@ export default function() {
     const onSend = body => sendMessage(buildMessage(body, channelId));
 
     const connectionStatus = READY_STATES[readyState];
-    
+    const isDisconnected = readyState === 3;
+
+    const triggerRefresh = React.useCallback(() => location.reload(), []);
     return (
         <div>
             <Header />
@@ -59,7 +62,7 @@ export default function() {
             </Container>
             <Container>
                 <Section>
-                    <SectionTitle>{connectionStatus}</SectionTitle>
+                    <SectionTitle>{connectionStatus}{isDisconnected ? <Button primary onClick={triggerRefresh}>REFRESH</Button> : null}</SectionTitle>
                     <MessageList>
                         <Messages messages={messageHistory} />
                     </MessageList>
