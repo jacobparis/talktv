@@ -9,11 +9,14 @@ export default function() {
     React.useEffect(() => {
         let isSubscribed = true;
 
-        getVideos().then(videos => {
+        // Load videos from Youtube API
+        loadVideos().then(videos => {
             if (isSubscribed) setVideos(videos);
         });
 
         return () => isSubscribed = false;
+        // isSubscribed maneuver lets us cancel the promise
+        // if the component unmounts before the results come in
     }, []);
 
     return (
@@ -26,7 +29,7 @@ export default function() {
     );
 }
 
-function getVideos() {
+function loadVideos() {
     return new Promise((resolve, reject) => {
         gapi.client.youtube.search.list({
             "part": "snippet",

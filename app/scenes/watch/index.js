@@ -27,21 +27,29 @@ const SOCKET_URL = process.env.IS_OFFLINE ? (
 );
 
 export default function() {
+    // example.com/watch/L6bD7whNHBk
+    // returns L6bD7whNHBk
     const channelId = document.location.pathname.split('/').pop();
 
     const [messageHistory, setMessageHistory] = React.useState([]);
     React.useEffect(() => {
         let isSubscribed = true;
 
+        // Load messages from server
         getMessageHistory(channelId).then(history => {
             if (isSubscribed) setMessageHistory(history);
         });
 
         return () => isSubscribed = false;
+        // isSubscribed maneuver lets us cancel the promise
+        // if the component unmounts before the results come in
     }, [channelId]);
 
+
+    // Connect to socket server
     const [socketUrl, setSocketUrl] = React.useState(SOCKET_URL);
     const [sendMessage, lastMessage, readyState] = useWebSocket(socketUrl);
+    // Add incoming messages to chatbox
     React.useEffect(() => {
         if(lastMessage && lastMessage.data) {
             setMessageHistory(prev => prev.concat(JSON.parse(lastMessage.data)));
@@ -52,7 +60,6 @@ export default function() {
 
     const connectionStatus = READY_STATES[readyState];
     const isDisconnected = readyState === 3;
-
     const triggerRefresh = React.useCallback(() => location.reload(), []);
     return (
         <div>
@@ -62,7 +69,13 @@ export default function() {
             </Container>
             <Container>
                 <Section>
-                    <SectionTitle>{connectionStatus}{isDisconnected ? <Button primary onClick={triggerRefresh}>REFRESH</Button> : null}</SectionTitle>
+                    <SectionTitle>
+                        {connectionStatus}
+                        {isDisconnected 
+                            ? <Button primary onClick={triggerRefresh}>REFRESH</Button> 
+                            : null
+                        }
+                    </SectionTitle>
                     <MessageList>
                         <Messages messages={messageHistory} />
                     </MessageList>

@@ -4,6 +4,8 @@ import { Button } from "../../components/button";
 import { Container } from "../../components/containers";
 import { Card, Divider, Icon } from "../../components/cards";
 
+// This scope is a set of permissions to request
+// when the user logs in
 const YOUTUBE_SCOPE = "https://www.googleapis.com/auth/youtube.readonly";
 
 export default function() {
@@ -30,7 +32,7 @@ function LoginCard({onLogin}) {
             </header>
             <Divider />
             <div>
-                <Button primary wide onClick={onLogin}>LOG IN</Button>
+                <Button primary wide onClick={onLogin}>LOG IN WITH GOOGLE</Button>
             </div>
         </Card>
     );
