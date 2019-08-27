@@ -1,11 +1,12 @@
 import React from "react";
 
-import { Container } from "../../components/containers";
+import { Header } from "../../components/header";
 
 export default function() {
     return (
-        <Container>
+        <div>
+            <Header />
             <h1> Welcome home, logged in user!</h1>
-        </Container>
+        </div>
     );
 }
