@@ -38,6 +38,9 @@ provider:
         - Fn::GetAtt:
             - Connections
             - Arn
+        - Fn::GetAtt:
+            - Messages
+            - Arn
 
 custom:
   output:
@@ -68,6 +71,13 @@ functions:
       - websocket: 
           route: $default
 
+  GetMessages:
+    handler: api/get-messages.handler
+    events:
+      - http:
+          path: api/messages/{channel}
+          method: get
+
 resources:
   Resources:
     SocketAPI:
@@ -76,6 +86,24 @@ resources:
         Name: ${self:service}-socket-api
         ProtocolType: WEBSOCKET
         RouteSelectionExpression: "$request.body.message"
+
+    Messages:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: ChannelId
+            AttributeType: S
+          - AttributeName: MessageId
+            AttributeType: N
+        KeySchema:
+          - AttributeName: ChannelId
+            KeyType: HASH
+          - AttributeName: MessageId
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.PREFIX}-messages
 
     Connections:
       Type: AWS::DynamoDB::Table
