@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Header } from "../../components/header";
-import { Container } from "../../components/containers";
+import { Container, Section, SectionTitle } from "../../components/containers";
 import { VideoFrame } from "../../components/youtube";
 
 export default function() {
@@ -12,6 +12,11 @@ export default function() {
             <Header />
             <Container>
                 <VideoFrame id={channelId} />
+            </Container>
+            <Container>
+                <Section>
+                    <SectionTitle>Join the conversation!</SectionTitle>
+                </Section>
             </Container>
         </div>
     );
