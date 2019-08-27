@@ -7,6 +7,8 @@ import { VideoFrame } from "../../components/youtube";
 export default function() {
     const channelId = document.location.pathname.split('/').pop();
 
+    const profile = useProfile();
+
     return (
         <div>
             <Header />
@@ -15,9 +17,19 @@ export default function() {
             </Container>
             <Container>
                 <Section>
-                    <SectionTitle>Join the conversation!</SectionTitle>
+                    <SectionTitle>Join the conversation, {profile.name}!</SectionTitle>
                 </Section>
             </Container>
         </div>
     );
+}
+
+function useProfile() {
+    const auth = gapi.auth2.getAuthInstance();
+    const profile = auth.currentUser.get().getBasicProfile();
+
+    return {
+        id: profile.getId(),
+        name: profile.getName()
+    };
 }
