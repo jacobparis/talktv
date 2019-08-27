@@ -8,6 +8,7 @@ import { Loading } from "./components/loading";
 
 import LoginScene from "./scenes/login";
 import HomeScene from "./scenes/home";
+import WatchScene from "./scenes/watch";
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const API_KEY = process.env.API_KEY;
@@ -19,6 +20,7 @@ function App() {
     return isSignedIn ? (
         <Router>
             <Switch>
+                <Route path="/watch/:id" component={WatchScene} />
                 <Route path="/watch" component={HomeScene} />
                 <Redirect from="/" to="/watch" />
             </Switch>
